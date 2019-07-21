@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
   Widget _contactCard(BuildContext context, int index) {
     return GestureDetector(
       key: ValueKey(index),
-      onTap: () => _showContactPage(contact: contacts[index]),
+      onTap: () => _showOptions(context, index),
       child: Card(
         key: ValueKey(index),
         child: Padding(
@@ -106,6 +106,65 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void _showOptions(BuildContext context, int index) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return BottomSheet(
+            onClosing: () {},
+            builder: (context) {
+              return Container(
+                padding: EdgeInsets.all(10.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: FlatButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Ligar",
+                          style: TextStyle(color: Colors.black, fontSize: 20.0),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: FlatButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          _showContactPage(contact: contacts[index]);
+                        },
+                        child: Text(
+                          "Editar",
+                          style: TextStyle(color: Colors.black, fontSize: 20.0),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: FlatButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          helper.delectContact(contacts[index].id);
+                          setState(() {
+                           contacts.removeAt(index);  
+                          });
+                        },
+                        child: Text(
+                          "Excluir",
+                          style: TextStyle(color: Colors.black, fontSize: 20.0),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        });
   }
 
   void _showContactPage({Contact contact}) async {
