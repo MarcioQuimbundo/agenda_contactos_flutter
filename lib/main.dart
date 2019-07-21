@@ -1,3 +1,4 @@
+import 'package:agenda_contactos_flutter/src/ui/contact_page.dart';
 import 'package:agenda_contactos_flutter/src/ui/home_page.dart';
 import 'package:flutter/material.dart';
 

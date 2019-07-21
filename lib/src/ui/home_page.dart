@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.amber,
         centerTitle: true,
@@ -69,9 +69,11 @@ class _HomePageState extends State<HomePage> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                      image: contacts[index].img != null
+                      image:
+                          /*contacts[index].img != null
                           ? FileImage(File(contacts[index].img))
-                          : AssetImage("assets/images/person.png")),
+                          : */
+                          AssetImage("assets/images/person.png")),
                 ),
               ),
               Padding(
@@ -105,4 +107,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  void _showContactPage() {}
 }
