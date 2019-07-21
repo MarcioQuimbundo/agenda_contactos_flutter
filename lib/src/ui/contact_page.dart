@@ -11,10 +11,10 @@ class ContactPage extends StatefulWidget {
 }
 
 class _ContactPageState extends State<ContactPage> {
-
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
+  final _nameFocus = FocusNode();
   bool _userEdited = false;
   Contact _editedContact;
   @override
@@ -43,7 +43,13 @@ class _ContactPageState extends State<ContactPage> {
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: () {
+          if (_editedContact.name != "" && _editedContact.name != null) {
+            Navigator.pop(context, _editedContact);
+          } else {
+            FocusScope.of(context).requestFocus(_nameFocus);
+          }
+        },
         backgroundColor: Colors.amber,
         child: Icon(
           Icons.save,
@@ -61,18 +67,21 @@ class _ContactPageState extends State<ContactPage> {
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                        image: _editedContact.img != null
+                        image:
+                            /*_editedContact.img != null
                             ? FileImage(File(_editedContact.img))
-                            : AssetImage("assets/images/person.png"))),
+                            : */
+                            AssetImage("assets/images/person.png"))),
               ),
             ),
             TextField(
               controller: _nameController,
+              focusNode: _nameFocus,
               decoration: InputDecoration(labelText: "Nome"),
-              onChanged: (text){
-                _userEdited = true; 
+              onChanged: (text) {
+                _userEdited = true;
                 setState(() {
-                 _editedContact.name = text;
+                  _editedContact.name = text;
                 });
               },
             ),
@@ -80,18 +89,18 @@ class _ContactPageState extends State<ContactPage> {
               controller: _emailController,
               decoration: InputDecoration(labelText: "Email"),
               keyboardType: TextInputType.emailAddress,
-              onChanged: (text){
-                _userEdited = true; 
-                 _editedContact.email = text;
+              onChanged: (text) {
+                _userEdited = true;
+                _editedContact.email = text;
               },
             ),
             TextField(
               controller: _phoneController,
               decoration: InputDecoration(labelText: "Phone"),
               keyboardType: TextInputType.phone,
-              onChanged: (text){
-                _userEdited = true; 
-                 _editedContact.phone = text;
+              onChanged: (text) {
+                _userEdited = true;
+                _editedContact.phone = text;
               },
             ),
           ],
